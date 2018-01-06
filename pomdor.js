@@ -44,7 +44,7 @@ const makeCycle = cycle =>  new Task((rej, res) => {
   }, cycle.time)
 })
 
-const makeSequence = pipe(
+const sequence = pipe(
   reps => map(round => [
       {time: argv.l*1000*60, type: 'largo', round}, 
       {time: argv.c*1000*60, type: 'corto', round}
@@ -58,4 +58,4 @@ const makeSequence = pipe(
 let sequencer = (fst, snd) => fst.chain(_ => snd)
 
 //run
-reduce(sequencer, Task.of(log('started')), seq).fork(log, log)
+reduce(sequencer, Task.of(log('inicia')), sequence).fork(log, log)
