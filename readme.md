@@ -4,7 +4,7 @@ Un Pomodoro
 
 ## Ejemplo de uso 
 
-`nod-c 5 -r 3`
+`node pomdor -l 45  -c 5 -r 3`
 
 ```
 -l       Duración del ciclo largo en minutos
