@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const play = require('play');
 const Task = require('data.task')
 const argv = require('yargs').argv
