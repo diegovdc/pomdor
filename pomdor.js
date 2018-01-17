@@ -23,10 +23,31 @@ const help = () =>  log(`
     h       ayuda
 `)
 
+var {l, c, r, p} = argv
+
+let presets = {
+  netflix: {
+    l: 120,
+    c: 1,
+    r: 1,
+  },
+  equal: {
+    l: l,
+    c: l,
+    r: r,
+  }
+}
+
+
+
+
+
 if(argv.h) {
   help()
   return
-} else if(isNil(argv.l) || isNil(argv.c) || isNil(argv.r)) {
+} else if(presets[p]) {
+  var {l, c, r} = presets[p]
+} else if(isNil(l) || isNil(c)) {
   log('\nHubo un error al usar a pomdor \n\n')
   log('Ayuda:')
   help()
@@ -35,8 +56,8 @@ if(argv.h) {
 
 const makeCycle = cycle =>  new Task((rej, res) => {
   log(`cíclo: ${cycle.type} #${cycle.round}`)
-  if(cycle.type === 'largo' && cycle.round !== 0) { play.sound(__dirname+'/1.mp3'); }
-  if (cycle.type === 'corto') { play.sound(__dirname +'/1.mp3'); }
+  if(cycle.type === 'largo' && cycle.round !== 0) { play.sound(__dirname+'/2.mp3'); }
+  if (cycle.type === 'corto') { play.sound(__dirname +'/3.mp3'); }
   setTimeout(() => {
     res()
   }, cycle.time)
@@ -44,14 +65,14 @@ const makeCycle = cycle =>  new Task((rej, res) => {
 
 const sequence = pipe(
   reps => map(round => [
-      {time: argv.l*1000*60, type: 'largo', round}, 
-      {time: argv.c*1000*60, type: 'corto', round}
+      {time: l*1000*60, type: 'largo', round}, 
+      {time: c*1000*60, type: 'corto', round}
     ], 
     range(0, reps)),
   flatten,
   map(makeCycle)
 )
-(argv.r)
+(r || 1)
 
 //sequencer :: Task -> Task -> Task
 const sequencer = (fst, snd) => fst.chain(_ => snd)
