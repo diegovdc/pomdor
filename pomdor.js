@@ -20,10 +20,12 @@ const help = () =>  log(`
     l       Duración del ciclo largo en minutos
     c       Duración del ciclo largo en corto en minutos
     r       Número de repeticiones
+    s       Shorthand <l>/<c>/<r>
+    p       Presets
     h       ayuda
 `)
 
-var {l, c, r, p} = argv
+var {l, c, r, p, s} = argv
 
 let presets = {
   netflix: {
@@ -47,6 +49,8 @@ if(argv.h) {
   return
 } else if(presets[p]) {
   var {l, c, r} = presets[p]
+} else if(s.split('/').length >= 2) {
+  var [l, c, r] = s.split('/').map(Number)
 } else if(isNil(l) || isNil(c)) {
   log('\nHubo un error al usar a pomdor \n\n')
   log('Ayuda:')
