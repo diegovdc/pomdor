@@ -25,7 +25,7 @@ const help = () =>  log(`
     h       ayuda
 `)
 
-var {l, c, r, p, s} = argv
+let {l, c, r, p, s} = argv
 
 let presets = {
   netflix: {
@@ -40,17 +40,13 @@ let presets = {
   }
 }
 
-
-
-
-
 if(argv.h) {
   help()
   return
 } else if(presets[p]) {
-  var {l, c, r} = presets[p]
+  ({l, c, r} = presets[p])
 } else if(s.split('/').length >= 2) {
-  var [l, c, r] = s.split('/').map(Number)
+  ([l, c, r] = s.split('/').map(Number))
 } else if(isNil(l) || isNil(c)) {
   log('\nHubo un error al usar a pomdor \n\n')
   log('Ayuda:')
